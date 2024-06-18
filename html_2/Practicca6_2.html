@@ -1,0 +1,374 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Practicca6_2</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-06-17">
+<meta name="DC.source" content="Practicca6_2.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<pre class="codeinput">
+<span class="comment">% SISTEMA EN DIFERENCIAS</span>
+clc;
+clear;
+close <span class="string">all</span>;
+
+<span class="comment">% Definir la funci&oacute;n de transferencia del sistema</span>
+syms <span class="string">z</span> <span class="string">n</span>
+num = [1 0.5]; <span class="comment">% Coeficientes del numerador</span>
+den = [1 -0.8 0.3]; <span class="comment">% Coeficientes del denominador</span>
+</pre>
+<p>Crear la funci&oacute;n de transferencia simb&oacute;lica</p>
+<pre class="codeinput">Hz = poly2sym(num, z) / poly2sym(den, z);
+disp(<span class="string">'Funci&oacute;n de transferencia del sistema H(z):'</span>);
+pretty(Hz)
+</pre>
+<pre class="codeoutput">Funci&oacute;n de transferencia del sistema H(z):
+        1
+    z + -
+        2
+-------------
+ 2   4 z    3
+z  - --- + --
+      5    10
+
+</pre>
+<p>Respuesta al impulso</p>
+<pre class="codeinput">h_impulse_sym = iztrans(Hz);
+disp(<span class="string">'Respuesta simb&oacute;lica al impulso h[n]:'</span>);
+pretty(h_impulse_sym)
+</pre>
+<pre class="codeoutput">Respuesta simb&oacute;lica al impulso h[n]:
+                             n   1 - n                    n - 1
+5 kroneckerDelta(n, 0)   (-1)  10      sqrt(14) (- 4 - #1)      25i
+---------------------- + ------------------------------------------
+           3                                 56
+
+         n   1 - n                    n - 1
+     (-1)  10      sqrt(14) (- 4 + #1)      25i
+   - ------------------------------------------
+                         56
+
+         n  n    /   /          / 2 sqrt(30) \ \ \
+     (-1)  3  cos| n | pi - acos| ---------- | | | 5
+                 \   \          \     15     / / /
+   + -----------------------------------------------
+                             n/2
+                         2 30
+
+where
+
+   #1 == sqrt(14) 1i
+
+
+</pre>
+<p>Graficar la respuesta al impulso</p>
+<pre class="codeinput">n_vals = 0:10;
+h_impulse_vals = double(subs(h_impulse_sym, n, n_vals));
+figure;
+stem(n_vals, h_impulse_vals, <span class="string">'filled'</span>);
+title(<span class="string">'Respuesta al Impulso'</span>);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'h[n]'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="Practicca6_2_01.png" alt=""> <p>Respuesta a entrada cero (u[n] = 0)</p>
+<pre class="codeinput">u_zero = zeros(1, length(n_vals)); <span class="comment">% Entrada cero</span>
+y_zero_sym = iztrans(Hz * 0); <span class="comment">% Respuesta a entrada cero es cero</span>
+disp(<span class="string">'Respuesta simb&oacute;lica a la entrada cero y_entrada_cero[n]:'</span>);
+pretty(y_zero_sym)
+</pre>
+<pre class="codeoutput">Respuesta simb&oacute;lica a la entrada cero y_entrada_cero[n]:
+0
+
+</pre>
+<p>Graficar la respuesta a la entrada cero</p>
+<pre class="codeinput">figure;
+stem(n_vals, u_zero, <span class="string">'filled'</span>);
+title(<span class="string">'Respuesta a la Entrada Cero'</span>);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'y_{entrada\_cero}[n]'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="Practicca6_2_02.png" alt=""> <p>Respuesta a estado cero (entrada diferente de cero, condiciones iniciales cero) Aqu&iacute; asumimos una entrada diferente de cero como un impulso</p>
+<pre class="codeinput">x0 = 0; <span class="comment">% Condiciones iniciales cero</span>
+y_estado_cero_sym = iztrans(Hz); <span class="comment">% Similar a la respuesta al impulso</span>
+disp(<span class="string">'Respuesta simb&oacute;lica a estado cero y_estado_cero[n]:'</span>);
+pretty(y_estado_cero_sym)
+</pre>
+<pre class="codeoutput">Respuesta simb&oacute;lica a estado cero y_estado_cero[n]:
+                             n   1 - n                    n - 1
+5 kroneckerDelta(n, 0)   (-1)  10      sqrt(14) (- 4 - #1)      25i
+---------------------- + ------------------------------------------
+           3                                 56
+
+         n   1 - n                    n - 1
+     (-1)  10      sqrt(14) (- 4 + #1)      25i
+   - ------------------------------------------
+                         56
+
+         n  n    /   /          / 2 sqrt(30) \ \ \
+     (-1)  3  cos| n | pi - acos| ---------- | | | 5
+                 \   \          \     15     / / /
+   + -----------------------------------------------
+                             n/2
+                         2 30
+
+where
+
+   #1 == sqrt(14) 1i
+
+
+</pre>
+<p>Graficar la respuesta a estado cero</p>
+<pre class="codeinput">figure;
+stem(n_vals, h_impulse_vals, <span class="string">'filled'</span>);
+title(<span class="string">'Respuesta a Estado Cero'</span>);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'y_{estado\_cero}[n]'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="Practicca6_2_03.png" alt=""> <p>Respuesta total (considerando ambas entradas)</p>
+<pre class="codeinput">y_total_sym = y_zero_sym + y_estado_cero_sym;
+disp(<span class="string">'Respuesta simb&oacute;lica total y_total[n]:'</span>);
+pretty(y_total_sym)
+</pre>
+<pre class="codeoutput">Respuesta simb&oacute;lica total y_total[n]:
+                             n   1 - n                    n - 1
+5 kroneckerDelta(n, 0)   (-1)  10      sqrt(14) (- 4 - #1)      25i
+---------------------- + ------------------------------------------
+           3                                 56
+
+         n   1 - n                    n - 1
+     (-1)  10      sqrt(14) (- 4 + #1)      25i
+   - ------------------------------------------
+                         56
+
+         n  n    /   /          / 2 sqrt(30) \ \ \
+     (-1)  3  cos| n | pi - acos| ---------- | | | 5
+                 \   \          \     15     / / /
+   + -----------------------------------------------
+                             n/2
+                         2 30
+
+where
+
+   #1 == sqrt(14) 1i
+
+
+</pre>
+<p>Graficar la respuesta total</p>
+<pre class="codeinput">figure;
+stem(n_vals, h_impulse_vals, <span class="string">'filled'</span>);
+title(<span class="string">'Respuesta Total'</span>);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'y_{total}[n]'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="Practicca6_2_04.png" alt=""> <p>Respuesta total al escal&oacute;n con condiciones iniciales cero</p>
+<pre class="codeinput">u_step_sym = 1/(1 - z^-1); <span class="comment">% Transformada Z de un escal&oacute;n unitario</span>
+y_step_sym = iztrans(Hz * u_step_sym);
+disp(<span class="string">'Respuesta simb&oacute;lica al escal&oacute;n con condiciones iniciales cero y_escalon[n]:'</span>);
+pretty(y_step_sym)
+</pre>
+<pre class="codeoutput">Respuesta simb&oacute;lica al escal&oacute;n con condiciones iniciales cero y_escalon[n]:
+        n   1 - n                    n - 1
+    (-1)  10      sqrt(14) (- 4 + #1)      3i
+3 + -----------------------------------------
+                        14
+
+         n  n    /   /          / 2 sqrt(30) \ \ \
+     (-1)  3  cos| n | pi - acos| ---------- | | | 5
+                 \   \          \     15     / / /
+   - -----------------------------------------------
+                            n/2
+                          30
+
+         n   1 - n                    n - 1
+     (-1)  10      sqrt(14) (- 4 - #1)      3i
+   - -----------------------------------------
+                         14
+
+where
+
+   #1 == sqrt(14) 1i
+
+
+</pre>
+<p>Graficar la respuesta total al escal&oacute;n con condiciones iniciales cero</p>
+<pre class="codeinput">y_step_vals = double(subs(y_step_sym, n, n_vals));
+figure;
+stem(n_vals, y_step_vals, <span class="string">'filled'</span>);
+title(<span class="string">'Respuesta al Escal&oacute;n con Condiciones Iniciales Cero'</span>);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'y_{escalon}[n]'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="Practicca6_2_05.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+% SISTEMA EN DIFERENCIAS
+clc;
+clear;
+close all;
+
+% Definir la función de transferencia del sistema
+syms z n
+num = [1 0.5]; % Coeficientes del numerador
+den = [1 -0.8 0.3]; % Coeficientes del denominador
+%%
+% Crear la función de transferencia simbólica
+Hz = poly2sym(num, z) / poly2sym(den, z);
+disp('Función de transferencia del sistema H(z):');
+pretty(Hz)
+%%
+% Respuesta al impulso
+h_impulse_sym = iztrans(Hz);
+disp('Respuesta simbólica al impulso h[n]:');
+pretty(h_impulse_sym)
+%%
+% Graficar la respuesta al impulso
+n_vals = 0:10;
+h_impulse_vals = double(subs(h_impulse_sym, n, n_vals));
+figure;
+stem(n_vals, h_impulse_vals, 'filled');
+title('Respuesta al Impulso');
+xlabel('n');
+ylabel('h[n]');
+grid on;
+%%
+% Respuesta a entrada cero (u[n] = 0)
+u_zero = zeros(1, length(n_vals)); % Entrada cero
+y_zero_sym = iztrans(Hz * 0); % Respuesta a entrada cero es cero
+disp('Respuesta simbólica a la entrada cero y_entrada_cero[n]:');
+pretty(y_zero_sym)
+%%
+% Graficar la respuesta a la entrada cero
+figure;
+stem(n_vals, u_zero, 'filled');
+title('Respuesta a la Entrada Cero');
+xlabel('n');
+ylabel('y_{entrada\_cero}[n]');
+grid on;
+%%
+% Respuesta a estado cero (entrada diferente de cero, condiciones iniciales cero)
+% Aquí asumimos una entrada diferente de cero como un impulso
+x0 = 0; % Condiciones iniciales cero
+y_estado_cero_sym = iztrans(Hz); % Similar a la respuesta al impulso
+disp('Respuesta simbólica a estado cero y_estado_cero[n]:');
+pretty(y_estado_cero_sym)
+%%
+% Graficar la respuesta a estado cero
+figure;
+stem(n_vals, h_impulse_vals, 'filled');
+title('Respuesta a Estado Cero');
+xlabel('n');
+ylabel('y_{estado\_cero}[n]');
+grid on;
+%%
+% Respuesta total (considerando ambas entradas)
+y_total_sym = y_zero_sym + y_estado_cero_sym;
+disp('Respuesta simbólica total y_total[n]:');
+pretty(y_total_sym)
+%%
+% Graficar la respuesta total
+figure;
+stem(n_vals, h_impulse_vals, 'filled');
+title('Respuesta Total');
+xlabel('n');
+ylabel('y_{total}[n]');
+grid on;
+%%
+% Respuesta total al escalón con condiciones iniciales cero
+u_step_sym = 1/(1 - z^-1); % Transformada Z de un escalón unitario
+y_step_sym = iztrans(Hz * u_step_sym);
+disp('Respuesta simbólica al escalón con condiciones iniciales cero y_escalon[n]:');
+pretty(y_step_sym)
+%%
+% Graficar la respuesta total al escalón con condiciones iniciales cero
+y_step_vals = double(subs(y_step_sym, n, n_vals));
+figure;
+stem(n_vals, y_step_vals, 'filled');
+title('Respuesta al Escalón con Condiciones Iniciales Cero');
+xlabel('n');
+ylabel('y_{escalon}[n]');
+grid on;
+%%
+##### SOURCE END #####
+-->
+</body>
+</html>
